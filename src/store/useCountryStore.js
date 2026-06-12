@@ -35,11 +35,14 @@ export const useCountryStore = create(
           if (offset <= 0) {
             set({ isLoading: true });
             offset += 100;
-            let res = await fetch(`${BASE_URL}&offset=${offset}`);
+            let res = await fetch(
+              `${BASE_URL}&offset=${offset}  { headers: { 'Authorization': 'Bearer rc_live_5fd9d335af0e42b29c0fb305b121579e' } `,
+            );
             if (!res.ok) {
               throw new Error(`Failed to fetch countries: ${res.status}`);
             }
             let json = await res.json();
+
             let data = json.data.objects;
 
             set({ currentFetch: data });
