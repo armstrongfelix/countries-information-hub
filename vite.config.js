@@ -7,10 +7,15 @@ export default defineConfig({
   plugins: [tailwindcss(), react()],
   server: {
     proxy: {
-      "/api": {
+      "/api/countries": {
         target: "https://api.restcountries.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => {
+          const qs = path.includes("?") ? path.split("?")[1] : "";
+          const params = new URLSearchParams(qs);
+          const offset = params.get("offset") || "0";
+          return `/countries/v5?limit=100&api-key=rc_live_5fd9d335af0e42b29c0fb305b121579e&offset=${offset}`;
+        },
       },
     },
   },
