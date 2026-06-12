@@ -45,6 +45,7 @@ export const useCountryStore = create(
                   "Bearer rc_live_5fd9d335af0e42b29c0fb305b121579e",
               },
             });
+
             if (!res.ok) {
               throw new Error(`Failed to fetch countries: ${res.status}`);
             }
